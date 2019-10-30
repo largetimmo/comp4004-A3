@@ -1,1 +1,4 @@
-# comp4004-A3-JunhaoChen
+# AcademicTracking
+a simple university academic tracking system
+
+
