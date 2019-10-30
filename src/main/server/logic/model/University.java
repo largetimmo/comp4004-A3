@@ -71,7 +71,7 @@ public class University implements UniversityInt {
 				Config.REGISTRATION_STARTS = true;
 				//System.out.println("registration starts");
 			}
-		}, Config.SIMULATED_DAY * 20);
+		}, Config.SIMULATED_DAY * 20 * 1000);
 		
 		timer_registrationends.schedule(new TimerTask() {
 			
@@ -81,7 +81,7 @@ public class University implements UniversityInt {
 				Config.REGISTRATION_ENDS = true;
 				//System.out.println("registration ends");
 			}
-		}, Config.SIMULATED_DAY * (20 + 14));
+		}, Config.SIMULATED_DAY * (20 + 14) * 1000);
 		
 		timer_termends.schedule(new TimerTask() {
 			
@@ -94,7 +94,7 @@ public class University implements UniversityInt {
 				}
 				//System.out.println("term ends");
 			}
-		}, Config.SIMULATED_DAY * (20 + 14 + 84));
+		}, Config.SIMULATED_DAY * (20 + 14 + 84) * 1000);
 	}
 	
 	private void InitializeCourses() {
