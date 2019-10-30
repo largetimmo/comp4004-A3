@@ -55,7 +55,7 @@ public class OutputHandler {
 			if (!isNum.matches()) {
 				output.setOutput("Your input items should be in correct format.");
 				output.setState(STUDENTLOGIN);
-			} else if (Integer.parseInt(strArray[0]) < 100000000
+			} else if (Integer.parseInt(strArray[0]) < 100000000 // Why this????
 					|| Integer.parseInt(strArray[0]) > 999999999) {
 				output.setOutput("The length of student number must be 9.");
 				output.setState(STUDENTLOGIN);
@@ -194,7 +194,7 @@ public class OutputHandler {
 								.equalsIgnoreCase("n"))) {
 					output.setOutput("Your input items should be in correct format.");
 					output.setState(CREATESTUDENT);
-				} else if (Integer.parseInt(number) < 100000000
+				} else if (Integer.parseInt(number) < 100000000 // Why this???
 						|| Integer.parseInt(number) > 999999999) {
 					output.setOutput("The length of student number must be 9.");
 					output.setState(CREATESTUDENT);
@@ -327,7 +327,7 @@ public class OutputHandler {
 			if (input.replace(" ", "").equalsIgnoreCase("") || !isNum.matches()) {
 				output.setOutput("Your input should be in correct format.");
 				output.setState(DELETESTUDENT);
-			} else if (Integer.parseInt(number) < 100000000
+			} else if (Integer.parseInt(number) < 100000000 // THIS is really **** stupid
 					|| Integer.parseInt(number) > 999999999) {
 				output.setOutput("The length of student number must be 9.");
 				output.setState(DELETESTUDENT);
