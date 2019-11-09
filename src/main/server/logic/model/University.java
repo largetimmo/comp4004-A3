@@ -69,9 +69,9 @@ public class University implements UniversityInt {
 			@Override
 			public void run() {
 				Config.REGISTRATION_STARTS = true;
-				//System.out.println("registration starts");
+				System.out.println("registration starts");
 			}
-		}, Config.SIMULATED_DAY * 20 * 1000);
+		}, Config.SIMULATED_DAY * 2 * 100);
 		
 		timer_registrationends.schedule(new TimerTask() {
 			
@@ -79,9 +79,9 @@ public class University implements UniversityInt {
 			public void run() {
 				// TODO Auto-generated method stub
 				Config.REGISTRATION_ENDS = true;
-				//System.out.println("registration ends");
+				System.out.println("registration ends");
 			}
-		}, Config.SIMULATED_DAY * (20 + 14) * 1000);
+		}, Config.SIMULATED_DAY * (20 + 14) * 100);
 		
 		timer_termends.schedule(new TimerTask() {
 			
@@ -92,48 +92,17 @@ public class University implements UniversityInt {
 				for (int i=0; i<University.getInstance().getCourses().size(); i++) {
 					University.getInstance().MarkStudents(University.getInstance().getCourses().get(i));
 				}
-				//System.out.println("term ends");
+				System.out.println("term ends");
 			}
-		}, Config.SIMULATED_DAY * (20 + 14 + 84) * 1000);
+		}, Config.SIMULATED_DAY * (20 + 14 + 84) * 100);
 	}
 	
 	private void InitializeCourses() {
 		courses.clear();
-		/*
-		ProjectCourse c1 = new ProjectCourse("OO Software Dev", 105104, 30, false, 0, 3, false);
-		ProjectCourse c2 = new ProjectCourse("Computational Geometry", 105008, 20, false, 0, 3, false);
-		Course c3 = new Course("Principles of Distributed Computing", 105003, 20, false, 1, 2, true);
-		Course c4 = new Course("Advanced Database Systems", 105305, 30, false, 2, 2, true);
-		Course c5 = new Course("Foundations of Programming Languages", 105001, 30, false, 1, 3, true);
-		courses.add(c1);
-		courses.add(c2);
-		courses.add(c3);
-		courses.add(c4);
-		courses.add(c5);
-		logger.info(String.format("University Operation: Initialize course list; courses: %s", courses));
-		*/
 	}
 
 	private void InitializeStudents() {
 		students.clear();
-		/*
-		int[] studentNumberList = new int[]{101075401, 101075402};
-		String[] studentNameList = new String[]{"tom","jack"};
-		boolean[] isFullTimeList = new boolean[]{true,false};
-		for(int i=0;i<studentNumberList.length;i++) {
-			Student s = new Student(studentNumberList[i], studentNameList[i], isFullTimeList[i]);
-			students.add(s);
-		}
-		logger.info(String.format("University Operation: Initialize student list; students: %s", students));
-		*/
-	}
-
-	public int getUniversityCourses() {
-		return universityCourses;
-	}
-
-	public void setUniversityCourses(int universityCourses) {
-		University.universityCourses = universityCourses;
 	}
 
 	public List<Course> getCourses() {
@@ -402,14 +371,6 @@ public class University implements UniversityInt {
 	public boolean DestroyCourse(Course course) {
 		// TODO Auto-generated method stub
 		boolean result = true;
-		/*
-		int flag = 0;
-		for (int i=0; i<courses.size(); i++) {
-			if (courses.get(i).Code()==course.Code()) {
-				flag = flag + 1;
-			}
-		}
-		*/
 		if (CheckCourse(course.Code())) {
 			//List<Student> s = new ArrayList<Student>();
 			for (int i=0; i<students.size(); i++){
@@ -430,14 +391,6 @@ public class University implements UniversityInt {
 	public boolean DestroyStudent(Student student) {
 		// TODO Auto-generated method stub
 		boolean result = true;
-		/*
-		int flag = 0;
-		for (int i=0; i<students.size(); i++) {
-			if (students.get(i).StudentNumber()==student.StudentNumber()) {
-				flag = flag + 1;
-			}
-		}
-		*/
 		if (CheckStudent(student.StudentNumber())) {
 			//List<Course> c = new ArrayList<Course>();
 			for (int i=0; i<courses.size(); i++){
