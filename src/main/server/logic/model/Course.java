@@ -15,21 +15,23 @@ public class Course implements CourseInt {
 	
 	private Logger logger = Trace.getInstance().getLogger("opreation_file");
 	
-	String title;
-	int myCode;
-	int capsize;
+	private String title;
+	private int myCode;
+	private int capsize;
 	
-	boolean enforcePrereqs;
-	List<Integer> preRequisites;
+	private boolean enforcePrereqs;
+	private List<Integer> preRequisites;
 	
-	int numberOfMidterms;
-	List<Integer> weightOfMidterms;
+	private int numberOfMidterms;
+	private List<Integer> weightOfMidterms;
 	
-	int numberOfAssignments;
-	List<Integer> weightOfAssignments;
+	private int numberOfAssignments;
+	private List<Integer> weightOfAssignments;
 	
-	boolean hasAFinal;
-	int weightOfFinal;
+	private boolean hasAFinal;
+	private int weightOfFinal;
+
+	private int occupation = 0;
 	
 	Map<Student, Integer> enrollStudent;
 
@@ -69,6 +71,14 @@ public class Course implements CourseInt {
 		this.enrollStudent = new HashMap<Student, Integer>();
 		GenerateWeights();
 		logger.info(String.format("Course Operation: Initialize course; title: %s, myCode: %d", this.title, this.myCode));
+	}
+
+	public int getOccupation() {
+		return occupation;
+	}
+
+	public void addOccupation(){
+		occupation += 1;
 	}
 
 	public String getTitle() {

@@ -169,22 +169,14 @@ public class University implements UniversityInt {
 	
 	@Override
 	public boolean CheckCourse(int mycode) {
-		// TODO Auto-generated method stub
-		int flag = 0;
-		boolean result = true;
-		for (int i=0; i<courses.size(); i++) {
-			if (courses.get(i).Code() == mycode) {
-				flag = flag + 1;
+		for (Course c : courses){
+			if (c.Code() == mycode && c.getOccupation() < c.getCapsize()){
+				logger.info(String.format("University Operation: Check course; Course info: %d; State: Success", mycode));
+				return true;
 			}
 		}
-		if (flag!=0) {
-			result = true;
-			logger.info(String.format("University Operation: Check course; Course info: %d; State: Success", mycode));
-		} else {
-			result = false;
-			logger.info(String.format("University Operation: Check course; Course info: %d; State: Fail", mycode));
-		}
-		return result;
+		logger.info(String.format("University Operation: Check course; Course info: %d; State: Fail", mycode));
+		return false;
 	}
 	
 	@Override
