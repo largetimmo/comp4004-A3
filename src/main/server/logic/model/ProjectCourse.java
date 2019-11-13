@@ -57,7 +57,7 @@ public class ProjectCourse extends Course implements ProjectCourseInt {
 	@Override
 	public void GenerateWeights() {
 		// TODO Auto-generated method stub
-		int n = this.numberOfMidterms + this.numberOfAssignments + (this.hasAFinal?1:0) + (this.hasAProject?1:0);
+		int n = this.getNumberOfMidterms() + this.getNumberOfAssignments() + (this.isHasAFinal()?1:0) + (this.hasAProject?1:0);
 		List<Double> randomNumber = new ArrayList<Double>();
 		double m = 0;
 		Random random = new Random();
@@ -71,24 +71,24 @@ public class ProjectCourse extends Course implements ProjectCourseInt {
 			randomNumber.set(i, j);
 		}
 		int s = 0;
-		if(this.numberOfMidterms>0) {
+		if(this.getNumberOfMidterms()>0) {
 			List<Integer> wm = new ArrayList<Integer>();
-			for(int i=0; i<this.numberOfMidterms; i++){
+			for(int i=0; i<this.getNumberOfMidterms(); i++){
 				wm.add((int)(double)randomNumber.get(i));
 				s = s + wm.get(i);
 			}
 			setWeightOfMidterms(wm);
 		}
-		if(this.numberOfAssignments>0) {
+		if(this.getNumberOfAssignments()>0) {
 			List<Integer> wa = new ArrayList<Integer>();
-			for(int i=0; i<this.numberOfAssignments; i++){
-				wa.add((int)(double)randomNumber.get(this.numberOfMidterms+i));
+			for(int i=0; i<this.getNumberOfAssignments(); i++){
+				wa.add((int)(double)randomNumber.get(this.getNumberOfMidterms()+i));
 				s = s + wa.get(i);
 			}
 			setWeightOfAssignments(wa);
 		}
-		if(this.hasAFinal){
-			int wf = (int)(double)randomNumber.get(this.numberOfMidterms+this.numberOfAssignments);
+		if(this.isHasAFinal()){
+			int wf = (int)(double)randomNumber.get(this.getNumberOfMidterms()+this.getNumberOfAssignments());
 			setWeightOfFinal(wf);
 			s = s +wf;
 		}

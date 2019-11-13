@@ -25,7 +25,7 @@ public class TestDropCourse {
 		Student s = University.getInstance().GetStudent(101075401);
 		Course c = University.getInstance().GetCourse(105104);
 		s.SelectCourse(c);
-		assertTrue(s.DropCourse(c));
+		assertTrue(s.DropCourse(c,false));
 		logger.info(String.format("Drop course ends"));
 	}
 	
@@ -34,7 +34,7 @@ public class TestDropCourse {
 		logger.info(String.format("Drop course starts"));
 		Student s = University.getInstance().GetStudent(101075401);
 		Course c = University.getInstance().GetCourse(105008);
-		assertFalse(s.DropCourse(c));
+		assertFalse(s.DropCourse(c,false));
 		logger.info(String.format("Drop course ends"));
 	}
 

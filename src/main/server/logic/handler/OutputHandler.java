@@ -360,10 +360,12 @@ public class OutputHandler {
         if (Config.TERM_ENDS) {
             output.setOutput("Term ends!");
             output.setState(STUDENT);
-        } else if (Config.REGISTRATION_ENDS) {
-            output.setOutput("Course cannot be selected after registration ends!");
-            output.setState(STUDENT);
-        } else if (input.replace(" ", "").equalsIgnoreCase("") || !isNum.matches()) {
+        }
+//        else if (Config.REGISTRATION_ENDS) {
+//            output.setOutput("Course cannot be selected after registration ends!");
+//            output.setState(STUDENT);
+//        }
+        else if (input.replace(" ", "").equalsIgnoreCase("") || !isNum.matches()) {
             output.setOutput("Your input should be in correct format.");
             output.setState(SELECTCOURSE);
         } else if (code.length()!=6) {
@@ -471,7 +473,7 @@ public class OutputHandler {
             Student student = (Student) University.getInstance().GetStudent(
                     studentnumber);
             result = student.DropCourse(University.getInstance().GetCourse(
-                    Integer.parseInt(code)));
+                    Integer.parseInt(code)),false);
             if (result) {
                 output.setOutput("Success!");
             } else {

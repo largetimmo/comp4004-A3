@@ -367,7 +367,7 @@ public class University implements UniversityInt {
 			//List<Student> s = new ArrayList<Student>();
 			for (int i=0; i<students.size(); i++){
 				course.RemoveStudent(students.get(i));
-				students.get(i).DropCourse(course);
+				students.get(i).DropCourse(course,true);
 				students.get(i).DeRegisterCourse(course);
 			}
 			result = courses.remove(course);
