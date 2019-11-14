@@ -170,7 +170,7 @@ public class University implements UniversityInt {
 	@Override
 	public boolean CheckCourse(int mycode) {
 		for (Course c : courses){
-			if (c.Code() == mycode && c.getOccupation() < c.getCapsize()){
+			if (c.Code() == mycode && c.Students().size() < c.getCapsize()){
 				logger.info(String.format("University Operation: Check course; Course info: %d; State: Success", mycode));
 				return true;
 			}

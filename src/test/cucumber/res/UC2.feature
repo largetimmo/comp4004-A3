@@ -4,4 +4,4 @@ Feature: the clerk logs out of the ATC
     And clerk login
     And clerk login with correct password
     Then clerk enters system
-    Then clerk logs out
+    Then logs out
