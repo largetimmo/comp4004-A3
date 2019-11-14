@@ -1,0 +1,1 @@
+Feature: a student fulfills a course in which s/he is registered
