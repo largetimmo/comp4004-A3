@@ -165,7 +165,7 @@ public class Student implements StudentInt {
 			 return this.registeredCourses.remove(course);
 		}
 		boolean result = true;
-		if(!IsSelected(course)||IsRegistered(course)||IsCompleted(course)) {
+		if(!IsRegistered(course) || IsCompleted(course)) {
 			result = false;
 			logger.info(String.format("Student Operation: student %d drop course %d; State: Fail; Reason: student hasn't selected this course or student has completed this course", this.StudentNumber(), course.Code()));
 		} else {

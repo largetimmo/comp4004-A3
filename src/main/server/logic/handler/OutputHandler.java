@@ -458,7 +458,10 @@ public class OutputHandler {
         } else if (!Config.REGISTRATION_STARTS) {
             output.setOutput("Course cannot be dropped before registration starts!");
             output.setState(STUDENT);
-        } else if (input.replace(" ", "").equalsIgnoreCase("") || !isNum.matches()) {
+        } else if (!Config.REGISTRATION_ENDS) {
+            output.setOutput("Course cannot be dropped before registration ends!");
+            output.setState(STUDENT);
+        }else if (input.replace(" ", "").equalsIgnoreCase("") || !isNum.matches()) {
             output.setOutput("Your input should be in correct format.");
             output.setState(DROPCOURSE);
         } else if (code.length()!=6) {

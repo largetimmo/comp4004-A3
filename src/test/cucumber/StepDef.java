@@ -175,6 +175,23 @@ public class StepDef implements En {
             output = serverOutput.getOutput();
         });
 
+        Then("student deregister course {int}",(Integer courseNumber)->{
+            serverOutput = inputHandler.processInput("deregister course", currentState);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+        });
+        Then("student drop course {int}",(Integer courseNumber)->{
+            serverOutput = inputHandler.processInput("drop course", currentState);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+        });
+
 
     }
 }
