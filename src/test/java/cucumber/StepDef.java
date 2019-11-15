@@ -1,4 +1,4 @@
-package test.cucumber;
+package test.java.cucumber;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java8.En;
