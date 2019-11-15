@@ -391,6 +391,32 @@ public class OutputHandler {
         return output;
     }
 
+    public Output completeCourse(String input){
+        Output output = new Output("", 0);
+        String code = input.trim();
+        Pattern pattern = Pattern.compile("[0-9]*");
+        Matcher isNum = pattern.matcher(code);
+        boolean result = true;
+        if (!Config.TERM_ENDS){
+            output.setOutput("Term not ends yet!");
+            output.setState(STUDENT);
+        }else {
+            int studentnumber = University.getInstance()
+                    .getCurrentstudent();
+            Course course = University.getInstance().GetCourse(
+                    Integer.parseInt(code));
+            result = University.getInstance().MarkStudents(
+                     course);
+            if (result) {
+                output.setOutput("Success!");
+            } else {
+                output.setOutput("Unable to complete this course!");
+            }
+            output.setState(STUDENT);
+        }
+        return output;
+    }
+
     public Output registerforCourse(String input) {
         Output output = new Output("", 0);
         String code = input.trim();
