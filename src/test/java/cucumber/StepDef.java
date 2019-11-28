@@ -200,17 +200,17 @@ public class StepDef implements En {
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
-        Then("student login on port {int}",(Integer p,DataTable dt)->{
+        Then("student login on {string}",(String uid ,DataTable dt)->{
             StringBuffer sb = new StringBuffer();
             for (String data:dt.asList()){
                 sb.append(data);
                 sb.append(",");
             }
             sb.deleteCharAt(sb.lastIndexOf(","));
-            serverOutput = inputHandler.processInput("student", currentState,p);
+            serverOutput = inputHandler.processInput("student", currentState,uid);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(sb.toString(), currentState,p);
+            serverOutput = inputHandler.processInput(sb.toString(), currentState,uid);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
