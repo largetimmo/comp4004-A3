@@ -8,12 +8,16 @@ import main.server.logic.model.University;
 import main.utilities.Config;
 import org.junit.Assert;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class StepDef implements En {
 
     InputHandler inputHandler = new InputHandler();
     ServerOutput serverOutput = new ServerOutput("", 0);
     int currentState;
     String output;
+    Map<String,Integer> multiStudentState = new HashMap<>();
 
     public StepDef(){
         Given("init system",()->{
@@ -21,6 +25,7 @@ public class StepDef implements En {
             serverOutput = inputHandler.processInput("", InputHandler.WAITING,"1");
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
+            multiStudentState = new HashMap<>();
         });
         Then("registration does not start",()->{
             Assert.assertFalse(Config.REGISTRATION_STARTS);
@@ -207,53 +212,53 @@ public class StepDef implements En {
                 sb.append(",");
             }
             sb.deleteCharAt(sb.lastIndexOf(","));
-            serverOutput = inputHandler.processInput("student", currentState,uid);
-            currentState = serverOutput.getState();
+            serverOutput = inputHandler.processInput("student", 1,uid);
+            multiStudentState.put(uid,serverOutput.getState());
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(sb.toString(), currentState,uid);
-            currentState = serverOutput.getState();
+            serverOutput = inputHandler.processInput(sb.toString(), multiStudentState.get(uid),uid);
+            multiStudentState.put(uid,serverOutput.getState());
             output = serverOutput.getOutput();
         });
         Then("student register course {int} on {string}",(Integer courseNumber,String uid)->{
-            serverOutput = inputHandler.processInput("register for course", currentState,uid);
-            currentState = serverOutput.getState();
+            serverOutput = inputHandler.processInput("register for course",  multiStudentState.get(uid),uid);
+            multiStudentState.put(uid,serverOutput.getState());
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,uid);
-            currentState = serverOutput.getState();
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber),  multiStudentState.get(uid),uid);
+            multiStudentState.put(uid,serverOutput.getState());
             output = serverOutput.getOutput();
         });
         Then("student select course {int} on {string}",(Integer courseNumber,String uid)->{
-            serverOutput = inputHandler.processInput("select course", currentState,uid);
-            currentState = serverOutput.getState();
+            serverOutput = inputHandler.processInput("select course",  multiStudentState.get(uid),uid);
+            multiStudentState.put(uid,serverOutput.getState());
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,uid);
-            currentState = serverOutput.getState();
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber),  multiStudentState.get(uid),uid);
+            multiStudentState.put(uid,serverOutput.getState());
             output = serverOutput.getOutput();
         });
 
         Then("student deregister course {int} on {string}",(Integer courseNumber,String uid)->{
-            serverOutput = inputHandler.processInput("deregister course", currentState,uid);
-            currentState = serverOutput.getState();
+            serverOutput = inputHandler.processInput("deregister course",  multiStudentState.get(uid),uid);
+            multiStudentState.put(uid,serverOutput.getState());
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,uid);
-            currentState = serverOutput.getState();
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber),  multiStudentState.get(uid),uid);
+            multiStudentState.put(uid,serverOutput.getState());
             output = serverOutput.getOutput();
         });
         Then("student drop course {int} on {string}",(Integer courseNumber,String uid)->{
-            serverOutput = inputHandler.processInput("drop course", currentState,uid);
-            currentState = serverOutput.getState();
+            serverOutput = inputHandler.processInput("drop course",  multiStudentState.get(uid),uid);
+            multiStudentState.put(uid,serverOutput.getState());
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,uid);
-            currentState = serverOutput.getState();
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber),  multiStudentState.get(uid),uid);
+            multiStudentState.put(uid,serverOutput.getState());
             output = serverOutput.getOutput();
         });
 
         Then("student complete course {int} on {string}",(Integer courseNumber,String uid)->{
-            serverOutput = inputHandler.processInput("complete course", currentState,uid);
-            currentState = serverOutput.getState();
+            serverOutput = inputHandler.processInput("complete course",  multiStudentState.get(uid),uid);
+            multiStudentState.put(uid,serverOutput.getState());
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,uid);
-            currentState = serverOutput.getState();
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber),  multiStudentState.get(uid),uid);
+            multiStudentState.put(uid,serverOutput.getState());
             output = serverOutput.getOutput();
         });
 
