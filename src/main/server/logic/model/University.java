@@ -52,6 +52,7 @@ public class University implements UniversityInt {
 		TimeSimulate();
 		InitializeCourses();
 		InitializeStudents();
+		portStudentNumberMap = new HashMap<>();
 	}
 	
 	private void TimeSimulate() {
