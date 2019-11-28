@@ -18,7 +18,7 @@ public class University implements UniversityInt {
 	
 	List<Course> courses = new ArrayList<Course>();
 	List<Student> students = new ArrayList<Student>();
-	private Map<Integer,Integer> portStudentNumberMap = new HashMap<>();
+	private Map<String,Integer> portStudentNumberMap = new HashMap<>();
 	
 	static Timer timer_registrationstarts;
 	static Timer timer_registrationends;
@@ -113,7 +113,7 @@ public class University implements UniversityInt {
 		return students;
 	}
 
-	public Map<Integer, Integer> getPortStudentNumberMap() {
+	public Map<String, Integer> getPortStudentNumberMap() {
 		return portStudentNumberMap;
 	}
 

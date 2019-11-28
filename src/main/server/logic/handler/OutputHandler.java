@@ -39,7 +39,7 @@ public class OutputHandler {
         return output;
     }
 
-    public Output studentLogin(String input,Integer ID) {
+    public Output studentLogin(String input,String ID) {
         Output output = new Output("", 0);
         String[] strArray = null;
         strArray = input.split(",");
@@ -346,7 +346,7 @@ public class OutputHandler {
         return output;
     }
 
-    public Output selectCourse(String input,Integer ID) {
+    public Output selectCourse(String input,String ID) {
         Output output = new Output("", 0);
         String code = input.trim();
         Pattern pattern = Pattern.compile("[0-9]*");
@@ -414,7 +414,7 @@ public class OutputHandler {
         return output;
     }
 
-    public Output registerforCourse(String input,Integer ID) {
+    public Output registerforCourse(String input,String ID) {
         Output output = new Output("", 0);
         String code = input.trim();
         Pattern pattern = Pattern.compile("[0-9]*");
@@ -464,7 +464,7 @@ public class OutputHandler {
         return output;
     }
 
-    public Output dropCourse(String input,Integer ID) {
+    public Output dropCourse(String input,String ID) {
         Output output = new Output("", 0);
         String code = input.trim();
         Pattern pattern = Pattern.compile("[0-9]*");
@@ -509,7 +509,7 @@ public class OutputHandler {
         return output;
     }
 
-    public Output deregisterCourse(String input,Integer ID) {
+    public Output deregisterCourse(String input,String ID) {
         Output output = new Output("", 0);
         String code = input.trim();
         Pattern pattern = Pattern.compile("[0-9]*");

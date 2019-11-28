@@ -55,7 +55,7 @@ public class ServerThread extends Thread {
 		while (!done) {
 			try {
 				/** Received a message and pass to the server to handle */
-				server.handle(ID, streamIn.readLine());
+				server.handle(ID,socket.getInetAddress().toString()+socket.getPort(), streamIn.readLine());
 			} catch (IOException ioe) {
 				String message = String.format("Exception thrown : %s \n", ioe.getMessage());
 				logger.info(String.format ("Class: %-12s: %s",this.getClass().getSimpleName(), message));

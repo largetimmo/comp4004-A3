@@ -82,7 +82,7 @@ public class ATServer implements Runnable {
 		}
 	}
 	
-	public synchronized void handle(int ID, String input) {
+	public synchronized void handle(int ID,String uid, String input) {
 		if (input.equals("Exit")) 
 		{
 			logger.info(String.format("Client: %d Exits", ID));
@@ -100,7 +100,7 @@ public class ATServer implements Runnable {
 			String output;
 			if(exist(from)){
 				int state=clientState(from);
-				so=handler.processInput(input,state,ID);
+				so=handler.processInput(input,state,uid);
 				output=so.getOutput()+"\n";
 				from.send(output);
 				clientSetState(from,so.getState());
@@ -108,7 +108,7 @@ public class ATServer implements Runnable {
 			}else{
 				Client client=new Client(from,InputHandler.WAITING);
 				clientList.add(client);
-				so=handler.processInput(input,InputHandler.WAITING,ID);
+				so=handler.processInput(input,InputHandler.WAITING,uid);
 				output=so.getOutput()+"\n";
 				from.send(output);
 				clientSetState(from,so.getState());
