@@ -200,6 +200,62 @@ public class StepDef implements En {
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
+        Then("student login on port {int}",(Integer p,DataTable dt)->{
+            StringBuffer sb = new StringBuffer();
+            for (String data:dt.asList()){
+                sb.append(data);
+                sb.append(",");
+            }
+            sb.deleteCharAt(sb.lastIndexOf(","));
+            serverOutput = inputHandler.processInput("student", currentState,p);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+            serverOutput = inputHandler.processInput(sb.toString(), currentState,p);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+        });
+        Then("student register course {int} on {int}",(Integer courseNumber,Integer port)->{
+            serverOutput = inputHandler.processInput("register for course", currentState,port);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,port);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+        });
+        Then("student select course {int} on {int}",(Integer courseNumber,Integer port)->{
+            serverOutput = inputHandler.processInput("select course", currentState,port);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,port);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+        });
+
+        Then("student deregister course {int} on {int}",(Integer courseNumber,Integer port)->{
+            serverOutput = inputHandler.processInput("deregister course", currentState,port);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,port);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+        });
+        Then("student drop course {int} on {int}",(Integer courseNumber,Integer port)->{
+            serverOutput = inputHandler.processInput("drop course", currentState,port);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,port);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+        });
+
+        Then("student complete course {int} on {int}",(Integer courseNumber,Integer port)->{
+            serverOutput = inputHandler.processInput("complete course", currentState,port);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,port);
+            currentState = serverOutput.getState();
+            output = serverOutput.getOutput();
+        });
 
     }
 }
