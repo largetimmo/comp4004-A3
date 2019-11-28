@@ -1,10 +1,6 @@
 package main.server.logic.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 import main.utilities.Config;
 import main.utilities.Trace;
@@ -22,8 +18,7 @@ public class University implements UniversityInt {
 	
 	List<Course> courses = new ArrayList<Course>();
 	List<Student> students = new ArrayList<Student>();
-	
-	static int currentstudent;
+	private Map<Integer,Integer> portStudentNumberMap = new HashMap<>();
 	
 	static Timer timer_registrationstarts;
 	static Timer timer_registrationends;
@@ -117,18 +112,13 @@ public class University implements UniversityInt {
 		return students;
 	}
 
+	public Map<Integer, Integer> getPortStudentNumberMap() {
+		return portStudentNumberMap;
+	}
+
 	public void setStudents(List<Student> students) {
 		this.students = students;
 	}
-
-	public int getCurrentstudent() {
-		return currentstudent;
-	}
-
-	public void setCurrentstudent(int currentstudent) {
-		University.currentstudent = currentstudent;
-	}
-
 	@Override
 	public List<Course> Courses() {
 		// TODO Auto-generated method stub

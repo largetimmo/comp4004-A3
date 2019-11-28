@@ -30,7 +30,7 @@ public class InputHandler {
 
 	OutputHandler outputHandler = new OutputHandler();
 
-	public ServerOutput processInput(String input, int state) {
+	public ServerOutput processInput(String input, int state,Integer ID) {
 		String output = "";
 		Output o = new Output("", 0);
 		ServerOutput oo = new ServerOutput(output, o.getState());
@@ -63,7 +63,7 @@ public class InputHandler {
 			oo.setOutput(output);
 			oo.setState(state);
 		} else if (state == STUDENTLOGIN) {
-			o = outputHandler.studentLogin(input);
+			o = outputHandler.studentLogin(input,ID);
 			output = o.getOutput();
 			state = o.getState();
 			oo.setOutput(output);
@@ -135,7 +135,7 @@ public class InputHandler {
 				oo.setState(state);
 			}
 		} else if (state == STUDENT) {
-			int studentnumber = University.getInstance().getCurrentstudent();
+			int studentnumber = University.getInstance().getPortStudentNumberMap().get(ID);
 			Student student = (Student) University.getInstance().GetStudent(
 					studentnumber);
 			if (input.equalsIgnoreCase("select course")) {
@@ -359,7 +359,7 @@ public class InputHandler {
 				oo.setOutput(output);
 				oo.setState(state);
 			} else {
-				o = outputHandler.selectCourse(input);
+				o = outputHandler.selectCourse(input,ID);
 				output = o.getOutput();
 				state = o.getState();
 				oo.setOutput(output);
@@ -377,7 +377,7 @@ public class InputHandler {
 				oo.setOutput(output);
 				oo.setState(state);
 			} else {
-				o = outputHandler.registerforCourse(input);
+				o = outputHandler.registerforCourse(input,ID);
 				output = o.getOutput();
 				state = o.getState();
 				oo.setOutput(output);
@@ -395,7 +395,7 @@ public class InputHandler {
 				oo.setOutput(output);
 				oo.setState(state);
 			} else {
-				o = outputHandler.dropCourse(input);
+				o = outputHandler.dropCourse(input,ID);
 				output = o.getOutput();
 				state = o.getState();
 				oo.setOutput(output);
@@ -413,7 +413,7 @@ public class InputHandler {
 				oo.setOutput(output);
 				oo.setState(state);
 			} else {
-				o = outputHandler.deregisterCourse(input);
+				o = outputHandler.deregisterCourse(input,ID);
 				output = o.getOutput();
 				state = o.getState();
 				oo.setOutput(output);

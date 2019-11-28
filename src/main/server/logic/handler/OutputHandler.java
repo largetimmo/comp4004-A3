@@ -39,7 +39,7 @@ public class OutputHandler {
         return output;
     }
 
-    public Output studentLogin(String input) {
+    public Output studentLogin(String input,Integer ID) {
         Output output = new Output("", 0);
         String[] strArray = null;
         strArray = input.split(",");
@@ -63,8 +63,7 @@ public class OutputHandler {
                         Integer.parseInt(number), name);
                 if (result) {
                     output.setOutput("What can I do for you? Menu: Select Course, Register for Course, Drop Course, Deregister Course.");
-                    University.getInstance().setCurrentstudent(
-                            Integer.parseInt(number));
+                    University.getInstance().getPortStudentNumberMap().put(ID,Integer.parseInt(number));
                     output.setState(STUDENT);
                 } else {
                     output.setOutput("Invalid student number or student name.");
@@ -347,7 +346,7 @@ public class OutputHandler {
         return output;
     }
 
-    public Output selectCourse(String input) {
+    public Output selectCourse(String input,Integer ID) {
         Output output = new Output("", 0);
         String code = input.trim();
         Pattern pattern = Pattern.compile("[0-9]*");
@@ -376,7 +375,7 @@ public class OutputHandler {
             output.setOutput("The course does not exist!");
             output.setState(SELECTCOURSE);
         } else {
-            int studentnumber = University.getInstance().getCurrentstudent();
+            int studentnumber = University.getInstance().getPortStudentNumberMap().get(ID);
             Student student = (Student) University.getInstance().GetStudent(
                     studentnumber);
             result = student.SelectCourse(University.getInstance().GetCourse(
@@ -401,8 +400,6 @@ public class OutputHandler {
             output.setOutput("Term not ends yet!");
             output.setState(STUDENT);
         }else {
-            int studentnumber = University.getInstance()
-                    .getCurrentstudent();
             Course course = University.getInstance().GetCourse(
                     Integer.parseInt(code));
             result = University.getInstance().MarkStudents(
@@ -417,7 +414,7 @@ public class OutputHandler {
         return output;
     }
 
-    public Output registerforCourse(String input) {
+    public Output registerforCourse(String input,Integer ID) {
         Output output = new Output("", 0);
         String code = input.trim();
         Pattern pattern = Pattern.compile("[0-9]*");
@@ -449,8 +446,7 @@ public class OutputHandler {
                 output.setOutput("The course does not exist!");
                 output.setState(REGISTERFORCOURSE);
             } else {
-                int studentnumber = University.getInstance()
-                        .getCurrentstudent();
+                int studentnumber = University.getInstance().getPortStudentNumberMap().get(ID);
                 Student student = University.getInstance().GetStudent(
                         studentnumber);
                 Course course = University.getInstance().GetCourse(
@@ -468,7 +464,7 @@ public class OutputHandler {
         return output;
     }
 
-    public Output dropCourse(String input) {
+    public Output dropCourse(String input,Integer ID) {
         Output output = new Output("", 0);
         String code = input.trim();
         Pattern pattern = Pattern.compile("[0-9]*");
@@ -498,7 +494,7 @@ public class OutputHandler {
             output.setOutput("The course does not exist!");
             output.setState(DROPCOURSE);
         } else {
-            int studentnumber = University.getInstance().getCurrentstudent();
+            int studentnumber = University.getInstance().getPortStudentNumberMap().get(ID);
             Student student = (Student) University.getInstance().GetStudent(
                     studentnumber);
             result = student.DropCourse(University.getInstance().GetCourse(
@@ -513,7 +509,7 @@ public class OutputHandler {
         return output;
     }
 
-    public Output deregisterCourse(String input) {
+    public Output deregisterCourse(String input,Integer ID) {
         Output output = new Output("", 0);
         String code = input.trim();
         Pattern pattern = Pattern.compile("[0-9]*");
@@ -544,8 +540,7 @@ public class OutputHandler {
                 output.setOutput("The course does not exist!");
                 output.setState(DEREGISTERCOURSE);
             } else {
-                int studentnumber = University.getInstance()
-                        .getCurrentstudent();
+                int studentnumber = University.getInstance().getPortStudentNumberMap().get(ID);
                 Student student = University.getInstance().GetStudent(
                         studentnumber);
                 Course course = University.getInstance().GetCourse(

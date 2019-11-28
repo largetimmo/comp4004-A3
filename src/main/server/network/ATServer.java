@@ -100,7 +100,7 @@ public class ATServer implements Runnable {
 			String output;
 			if(exist(from)){
 				int state=clientState(from);
-				so=handler.processInput(input,state);
+				so=handler.processInput(input,state,ID);
 				output=so.getOutput()+"\n";
 				from.send(output);
 				clientSetState(from,so.getState());
@@ -108,7 +108,7 @@ public class ATServer implements Runnable {
 			}else{
 				Client client=new Client(from,InputHandler.WAITING);
 				clientList.add(client);
-				so=handler.processInput(input,InputHandler.WAITING);
+				so=handler.processInput(input,InputHandler.WAITING,ID);
 				output=so.getOutput()+"\n";
 				from.send(output);
 				clientSetState(from,so.getState());

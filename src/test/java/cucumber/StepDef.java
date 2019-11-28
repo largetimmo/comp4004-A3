@@ -18,7 +18,7 @@ public class StepDef implements En {
     public StepDef(){
         Given("init system",()->{
             University.getInstance().Reset();
-            serverOutput = inputHandler.processInput("", InputHandler.WAITING);
+            serverOutput = inputHandler.processInput("", InputHandler.WAITING,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
@@ -26,17 +26,17 @@ public class StepDef implements En {
             Assert.assertFalse(Config.REGISTRATION_STARTS);
         });
         And("clerk login",()->{
-            serverOutput = inputHandler.processInput("clerk", currentState);
+            serverOutput = inputHandler.processInput("clerk", currentState,6666);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
         And("clerk login with correct password",()->{
-            serverOutput = inputHandler.processInput(Config.CLERK_PASSWORD, currentState);
+            serverOutput = inputHandler.processInput(Config.CLERK_PASSWORD, currentState,6666);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
         And("clerk login with incorrect password",()->{
-            serverOutput = inputHandler.processInput("1234567", currentState);
+            serverOutput = inputHandler.processInput("1234567", currentState,6666);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
@@ -48,10 +48,10 @@ public class StepDef implements En {
             Assert.assertFalse(output.startsWith("What can I do for you?"));
         });
         Then("logs out",()->{
-            serverOutput = inputHandler.processInput("log out", currentState);
+            serverOutput = inputHandler.processInput("log out", currentState,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput("", currentState);
+            serverOutput = inputHandler.processInput("", currentState,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
@@ -81,27 +81,27 @@ public class StepDef implements En {
             }
 
             sb.deleteCharAt(sb.lastIndexOf(","));
-            serverOutput = inputHandler.processInput("create course", currentState);
+            serverOutput = inputHandler.processInput("create course", currentState,6666);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(sb.toString(), currentState);
+            serverOutput = inputHandler.processInput(sb.toString(), currentState,6666);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
 
         Then("clerk delete course {int}",(Integer courseNumber)->{
-            serverOutput = inputHandler.processInput("delete course", currentState);
+            serverOutput = inputHandler.processInput("delete course", currentState,6666);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState);
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,6666);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
         Then("clerk cancel course {int}",(Integer courseNumber)->{
-            serverOutput = inputHandler.processInput("cancel course", currentState);
+            serverOutput = inputHandler.processInput("cancel course", currentState,6666);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState);
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,6666);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
@@ -110,10 +110,10 @@ public class StepDef implements En {
         });
 
         Then("clerk delete student {int}",(Integer studentNumber)->{
-            serverOutput = inputHandler.processInput("delete student", currentState);
+            serverOutput = inputHandler.processInput("delete student", currentState,6666);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(Integer.toString(studentNumber), currentState);
+            serverOutput = inputHandler.processInput(Integer.toString(studentNumber), currentState,6666);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
@@ -128,10 +128,10 @@ public class StepDef implements En {
                 sb.append(",");
             }
             sb.deleteCharAt(sb.lastIndexOf(","));
-            serverOutput = inputHandler.processInput("create student", currentState);
+            serverOutput = inputHandler.processInput("create student", currentState,6666);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(sb.toString(), currentState);
+            serverOutput = inputHandler.processInput(sb.toString(), currentState,6666);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
@@ -143,10 +143,10 @@ public class StepDef implements En {
                 sb.append(",");
             }
             sb.deleteCharAt(sb.lastIndexOf(","));
-            serverOutput = inputHandler.processInput("student", currentState);
+            serverOutput = inputHandler.processInput("student", currentState,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(sb.toString(), currentState);
+            serverOutput = inputHandler.processInput(sb.toString(), currentState,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
@@ -159,44 +159,44 @@ public class StepDef implements En {
         });
 
         Then("student register course {int}",(Integer courseNumber)->{
-            serverOutput = inputHandler.processInput("register for course", currentState);
+            serverOutput = inputHandler.processInput("register for course", currentState,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState);
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
         Then("student select course {int}",(Integer courseNumber)->{
-            serverOutput = inputHandler.processInput("select course", currentState);
+            serverOutput = inputHandler.processInput("select course", currentState,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState);
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
 
         Then("student deregister course {int}",(Integer courseNumber)->{
-            serverOutput = inputHandler.processInput("deregister course", currentState);
+            serverOutput = inputHandler.processInput("deregister course", currentState,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState);
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
         Then("student drop course {int}",(Integer courseNumber)->{
-            serverOutput = inputHandler.processInput("drop course", currentState);
+            serverOutput = inputHandler.processInput("drop course", currentState,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState);
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
 
         Then("student complete course {int}",(Integer courseNumber)->{
-            serverOutput = inputHandler.processInput("complete course", currentState);
+            serverOutput = inputHandler.processInput("complete course", currentState,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
-            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState);
+            serverOutput = inputHandler.processInput(Integer.toString(courseNumber), currentState,9999);
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
         });
