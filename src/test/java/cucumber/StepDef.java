@@ -17,7 +17,7 @@ public class StepDef implements En {
     ServerOutput serverOutput = new ServerOutput("", 0);
     int currentState;
     String output;
-    Map<String,Integer> multiStudentState = new HashMap<>();
+    static Map<String,Integer> multiStudentState;
 
     public StepDef(){
         Given("init system",()->{

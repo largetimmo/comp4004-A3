@@ -1,5 +1,6 @@
-Feature: Sequential running multi student registration
-  Scenario: First student register course then the rest three student try to take the last spot
+Feature: Sequential running multi student registration Ex1
+
+  Scenario: Create course
     Given init system
     And clerk login
     And clerk login with correct password
@@ -26,16 +27,26 @@ Feature: Sequential running multi student registration
     Then student select course 101010 on "student2ip"
     Then student select course 101010 on "student3ip"
     Then student select course 101010 on "student4ip"
+
+  Scenario: Student 1 register course
     Then wait until registration starts
     Then student register course 101010 on "student1ip"
     Then student 101010101 has 1 course
+
+  Scenario:  Student 2 register course
+    Then wait until registration starts
     Then student register course 101010 on "student2ip"
     Then student 101010102 has 1 course
+
+  Scenario:  Student 3 register course
+    Then wait until registration starts
     Then student register course 101010 on "student3ip"
     Then student 101010103 has 0 course
+
+  Scenario:  Student 4 register course
+    Then wait until registration starts
     Then student register course 101010 on "student4ip"
     Then student 101010104 has 0 course
-
 
 
 
