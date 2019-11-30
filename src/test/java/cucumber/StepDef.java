@@ -18,6 +18,7 @@ public class StepDef implements En {
     String output;
     static Map<String, Integer> multiStudentState;
     static final List<Thread> threads = new LinkedList<>();
+    static boolean asyncFlag;
 
     public StepDef() {
         Given("init system", () -> {
@@ -26,6 +27,7 @@ public class StepDef implements En {
             currentState = serverOutput.getState();
             output = serverOutput.getOutput();
             multiStudentState = new HashMap<>();
+            asyncFlag = false;
         });
         Then("registration does not start", () -> {
             Assert.assertFalse(Config.REGISTRATION_STARTS);
@@ -280,7 +282,7 @@ public class StepDef implements En {
         });
         Then("student register course {int} on {string} async",(Integer courseNum, String uid )->{
             Thread t = new Thread(()->{
-                while (!Config.REGISTRATION_STARTS) {
+                while (!Config.REGISTRATION_STARTS && !asyncFlag) {
                     try {
                         Thread.sleep(threads.size());
                     } catch (InterruptedException e) {
@@ -302,7 +304,7 @@ public class StepDef implements En {
                 }
                 int studentNumber;
                 studentNumber = University.getInstance().getPortStudentNumberMap().get(uid);
-                System.out.println(uid+University.getInstance().getStudents().stream()
+                System.out.println("Register"+uid+University.getInstance().getStudents().stream()
                         .filter(s -> s.getStudentNumber() == studentNumber)
                         .findAny()
                         .get()
@@ -310,6 +312,43 @@ public class StepDef implements En {
             });
             threads.add(t);
             t.start();
+        });
+        Then("student deregister course {int} on {string} async",(Integer courseNum, String uid )->{
+            Thread t = new Thread(()->{
+                while (!Config.REGISTRATION_STARTS &&!asyncFlag) {
+                    try {
+                        Thread.sleep(threads.size());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                synchronized (inputHandler) {
+                    serverOutput = inputHandler.processInput("deregister course", multiStudentState.get(uid), uid);
+                    multiStudentState.put(uid, serverOutput.getState());
+                    output = serverOutput.getOutput();
+                    serverOutput = inputHandler.processInput(Integer.toString(courseNum), multiStudentState.get(uid), uid);
+                    multiStudentState.put(uid, serverOutput.getState());
+                    output = serverOutput.getOutput();
+                }
+                int studentNumber;
+                studentNumber = University.getInstance().getPortStudentNumberMap().get(uid);
+                System.out.println("Deregister:"+uid+University.getInstance().getStudents().stream()
+                        .filter(s -> s.getStudentNumber() == studentNumber)
+                        .findAny()
+                        .get()
+                        .getRegisteredCourses().size());
+            });
+            threads.add(t);
+            t.start();
+        });
+
+        Then("async ready",()->{
+            asyncFlag = true;
         });
     }
 }

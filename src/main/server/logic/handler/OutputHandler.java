@@ -535,8 +535,7 @@ public class OutputHandler {
             } else if (code.length()!=6) {
                 output.setOutput("The length of course code must be 6.");
                 output.setState(DEREGISTERCOURSE);
-            } else if (!University.getInstance().CheckCourse(
-                    Integer.parseInt(code))) {
+            } else if (University.getInstance().getCourses().stream().noneMatch(c -> c.getMyCode() == Integer.parseInt(code))) {
                 output.setOutput("The course does not exist!");
                 output.setState(DEREGISTERCOURSE);
             } else {

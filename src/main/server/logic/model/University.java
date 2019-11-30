@@ -308,7 +308,7 @@ public class University implements UniversityInt {
 	public boolean DeRegisterStudentFromCourse(Student student, Course course) {
 		// TODO Auto-generated method stub
 		boolean result = true;
-		if (CheckCourse(course.Code()) && CheckStudent(student.StudentNumber()) && student.IsRegistered(course)) {
+		if ( CheckStudent(student.StudentNumber()) && student.IsRegistered(course)) {
 			result = student.DeRegisterCourse(course);
 			if (result) {
 				result = course.RemoveStudent(student);
