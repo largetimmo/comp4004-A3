@@ -1,6 +1,8 @@
-Feature: Sequential running multi student registration Ex1
+Feature: Sequential running multi student registration Ex2
 
   Scenario: Create course
+    Then print "i start"
+    Then wait until registration starts
     Given init system
     And clerk login
     And clerk login with correct password
@@ -28,8 +30,8 @@ Feature: Sequential running multi student registration Ex1
     Then student select course 101010 on "student3ip"
     Then student select course 101010 on "student4ip"
 
-  Scenario:  Student 2 register course
-    Then student register course 101010 on "student2ip" async
+  Scenario:  Student 2 deregister course
+    Then student deregister course 101010 on "student2ip" async
 
   Scenario:  Student 3 register course
     Then student register course 101010 on "student3ip" async
@@ -42,9 +44,14 @@ Feature: Sequential running multi student registration Ex1
     Then student register course 101010 on "student1ip"
     Then student 101010101 has 1 course
 
+  Scenario: Student 2 register course
+    Then wait until registration starts
+    Then student register course 101010 on "student2ip"
+    Then student 101010102 has 1 course
+
   Scenario:  async ready
     Then async ready
 
 
-
-
+  Scenario: wait
+    Then wait until registration ends

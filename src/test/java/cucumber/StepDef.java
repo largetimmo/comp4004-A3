@@ -19,6 +19,7 @@ public class StepDef implements En {
     static Map<String, Integer> multiStudentState;
     static final List<Thread> threads = new LinkedList<>();
     static boolean asyncFlag;
+    static boolean ex2Ready = false;
 
     public StepDef() {
         Given("init system", () -> {
@@ -232,6 +233,11 @@ public class StepDef implements En {
                 serverOutput = inputHandler.processInput(Integer.toString(courseNumber), multiStudentState.get(uid), uid);
                 multiStudentState.put(uid, serverOutput.getState());
                 output = serverOutput.getOutput();
+                System.out.println("Register" + uid + University.getInstance().getStudents().stream()
+                        .filter(s -> s.getStudentNumber() == University.getInstance().getPortStudentNumberMap().get(uid))
+                        .findAny()
+                        .get()
+                        .getRegisteredCourses().size());
             }
         });
         Then("student select course {int} on {string}", (Integer courseNumber, String uid) -> {
@@ -280,8 +286,8 @@ public class StepDef implements En {
                 output = serverOutput.getOutput();
             }
         });
-        Then("student register course {int} on {string} async",(Integer courseNum, String uid )->{
-            Thread t = new Thread(()->{
+        Then("student register course {int} on {string} async", (Integer courseNum, String uid) -> {
+            Thread t = new Thread(() -> {
                 while (!Config.REGISTRATION_STARTS && !asyncFlag) {
                     try {
                         Thread.sleep(threads.size());
@@ -304,7 +310,7 @@ public class StepDef implements En {
                 }
                 int studentNumber;
                 studentNumber = University.getInstance().getPortStudentNumberMap().get(uid);
-                System.out.println("Register"+uid+University.getInstance().getStudents().stream()
+                System.out.println("Register" + uid + University.getInstance().getStudents().stream()
                         .filter(s -> s.getStudentNumber() == studentNumber)
                         .findAny()
                         .get()
@@ -313,9 +319,9 @@ public class StepDef implements En {
             threads.add(t);
             t.start();
         });
-        Then("student deregister course {int} on {string} async",(Integer courseNum, String uid )->{
-            Thread t = new Thread(()->{
-                while (!Config.REGISTRATION_STARTS &&!asyncFlag) {
+        Then("student deregister course {int} on {string} async", (Integer courseNum, String uid) -> {
+            Thread t = new Thread(() -> {
+                while (!Config.REGISTRATION_STARTS && !asyncFlag) {
                     try {
                         Thread.sleep(threads.size());
                     } catch (InterruptedException e) {
@@ -337,7 +343,7 @@ public class StepDef implements En {
                 }
                 int studentNumber;
                 studentNumber = University.getInstance().getPortStudentNumberMap().get(uid);
-                System.out.println("Deregister:"+uid+University.getInstance().getStudents().stream()
+                System.out.println("Deregister:" + uid + University.getInstance().getStudents().stream()
                         .filter(s -> s.getStudentNumber() == studentNumber)
                         .findAny()
                         .get()
@@ -347,8 +353,18 @@ public class StepDef implements En {
             t.start();
         });
 
-        Then("async ready",()->{
+        Then("async ready", () -> {
             asyncFlag = true;
+        });
+        Then("wait until async ready", () -> {
+            while (!asyncFlag) {
+                Thread.sleep(1);
+            }
+        });
+        Then("print {string}", (String msg) -> {
+            System.out.println(msg);
+            System.out.format("Thread ID - %2d -\n",
+                    Thread.currentThread().getId());
         });
     }
 }

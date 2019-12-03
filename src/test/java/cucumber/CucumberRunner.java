@@ -6,6 +6,6 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/java/cucumber/res")
-public class CucumberRunnerTest {
+@CucumberOptions( features= "src/test/java/cucumber/res")
+public class CucumberRunner {
 }

@@ -15,6 +15,87 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <executions>
+                    <execution>
+                        <id>acceptance-test</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- <forkCount>2</forkCount>
+                    <reuseForks>true</reuseForks> -->
+                    <useUnlimitedThreads>true</useUnlimitedThreads>
+                    <!-- 			    <threadCount>18</threadCount> -->
+                    <parallel>classes</parallel>
+                    <includes>
+                        <include>**/Parallel*IT.class</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.temyers</groupId>
+                <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+                <version>5.0.0</version>
+                <executions>
+                    <execution>
+                        <id>generateRunners</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>generateRunners</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Mandatory -->
+                            <!-- List of package names to scan for glue code. -->
+                            <glue>
+                                <package>test.java.cucumber</package>
+                            </glue>
+                            <!-- These are optional, with the default values -->
+                            <!-- Where to output the generated tests -->
+                            <outputDirectory>src/</outputDirectory>
+                            <!-- The directory, which must be in the root of the runtime classpath, containing your feature files.  -->
+                            <featuresDirectory>src/test/java/cucumber/</featuresDirectory>
+                            <!-- Directory where the cucumber report files shall be written  -->
+                            <!-- 	        		<cucumberOutputDir>target/cucumber-parallel/</cucumberOutputDir>  -->
+                            <cucumberOutputDir>target</cucumberOutputDir>
+
+                            <!-- 		        List of cucumber plugins. When none are provided the json formatter is used. For more -->
+                            <!-- 		             advanced usage see section about configuring cucumber plugins -->
+                            <plugins>
+                                <plugin>
+                                    <name>json</name>
+                                    <extension>json</extension>
+                                    <!--Optional output directory. Overrides cucumberOutputDirectory. Usefull when different plugins create files with the same extension-->
+                                    <outputDirectory>${project.build.directory}/cucumber-parallel/json</outputDirectory>
+                                </plugin>
+                                <!-- 		          <plugin> -->
+                                <!-- 		              <name>com.example.CustomHtmlFormatter</name>  -->
+                                <!--  		              <extension>html</extension>  -->
+                                <!--  		          </plugin>  -->
+                            </plugins>
+                            <strict>true</strict>
+                            <monochrome>true</monochrome>
+                            <useTestNG>false</useTestNG>
+                            <!-- 				The naming scheme to use for the generated test classes.  One of ['simple', 'feature-title', 'pattern'] -->
+                            <!--         		<namingScheme>simple</namingScheme> -->
+                            <!--         		The class naming pattern to use.  Only required/used if naming scheme is 'pattern'. -->
+                            <!--         		<namingPattern>Parallel{c}IT</namingPattern> -->
+                            <!-- 		        One of [SCENARIO, FEATURE]. SCENARIO generates one runner per scenario.  FEATURE generates a runner per feature. -->
+                            <parallelScheme>SCENARIO</parallelScheme>
+                            <!-- Specify a custom template for the generated sources (this is a path relative to the project base directory) -->
+                            <!-- 		        <customVmTemplate>src/test/resources/cucumber-custom-runner.vm</customVmTemplate> -->
+                            <!-- 		        Specify a custom package name for generated sources. Default is no package. -->
+                            <packageName>test.java.cucumber</packageName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -28,6 +109,17 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-jvm</artifactId>
+            <version>4.7.2</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-core</artifactId>
+            <version>4.7.2</version>
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
