@@ -29,7 +29,7 @@ Feature: Parallel running multi student registration Ex1
     Then student select course 101010 on "student3ip"
     Then student select course 101010 on "student4ip"
     Then wait until registration starts
-    Then student register course 101010 on "student1ip"
+    Then student register course 101010 on "student1ip" in "EX1"
     Then student 101010101 has 1 course
     Then async ready
     Examples:
@@ -39,7 +39,8 @@ Feature: Parallel running multi student registration Ex1
   Scenario Outline: async_register_course
     Then print "<print_out>"
     Then wait until async ready
-    Then student register course 101010 on "<ipaddr>"
+    Then student register course 101010 on "<ipaddr>" in "EX1"
+    Then set ex2 ready
     Examples:
       | print_out | ipaddr     |
       | 2 start   | student2ip |

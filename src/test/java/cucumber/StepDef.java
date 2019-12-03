@@ -19,7 +19,7 @@ public class StepDef implements En {
     static Map<String, Integer> multiStudentState;
     static final List<Thread> threads = new LinkedList<>();
     static boolean asyncFlag;
-    static boolean ex2Ready = false;
+    static Integer ex2Ready = 0;
 
     public StepDef() {
         Given("init system", () -> {
@@ -224,7 +224,7 @@ public class StepDef implements En {
                 output = serverOutput.getOutput();
             }
         });
-        Then("student register course {int} on {string}", (Integer courseNumber, String uid) -> {
+        Then("student register course {int} on {string} in {string}", (Integer courseNumber, String uid,String example) -> {
             synchronized (inputHandler) {
 
                 serverOutput = inputHandler.processInput("register for course", multiStudentState.get(uid), uid);
@@ -233,7 +233,7 @@ public class StepDef implements En {
                 serverOutput = inputHandler.processInput(Integer.toString(courseNumber), multiStudentState.get(uid), uid);
                 multiStudentState.put(uid, serverOutput.getState());
                 output = serverOutput.getOutput();
-                System.out.println("Register" + uid + University.getInstance().getStudents().stream()
+                System.out.println("Example"+example+"Register:" + uid + ",course count:"+University.getInstance().getStudents().stream()
                         .filter(s -> s.getStudentNumber() == University.getInstance().getPortStudentNumberMap().get(uid))
                         .findAny()
                         .get()
@@ -252,7 +252,7 @@ public class StepDef implements En {
             }
         });
 
-        Then("student deregister course {int} on {string}", (Integer courseNumber, String uid) -> {
+        Then("student deregister course {int} on {string} in {string}", (Integer courseNumber, String uid,String example) -> {
             synchronized (inputHandler) {
 
                 serverOutput = inputHandler.processInput("deregister course", multiStudentState.get(uid), uid);
@@ -261,6 +261,11 @@ public class StepDef implements En {
                 serverOutput = inputHandler.processInput(Integer.toString(courseNumber), multiStudentState.get(uid), uid);
                 multiStudentState.put(uid, serverOutput.getState());
                 output = serverOutput.getOutput();
+                System.out.println("Example"+example+"Deregister:" + uid + ",course count:"+University.getInstance().getStudents().stream()
+                        .filter(s -> s.getStudentNumber() == University.getInstance().getPortStudentNumberMap().get(uid))
+                        .findAny()
+                        .get()
+                        .getRegisteredCourses().size());
             }
         });
         Then("student drop course {int} on {string}", (Integer courseNumber, String uid) -> {
@@ -363,8 +368,22 @@ public class StepDef implements En {
         });
         Then("print {string}", (String msg) -> {
             System.out.println(msg);
-            System.out.format("Thread ID - %2d -\n",
-                    Thread.currentThread().getId());
+        });
+        Then("wait ex2",()->{
+            while (ex2Ready<3){
+                Thread.sleep(1);
+            }
+        });
+        Then("set ex2 ready",()->{
+            synchronized (ex2Ready){
+                ex2Ready +=1;
+            }
+            asyncFlag = false;
+        });
+        Then ("wait until ex2 and async ready",()->{
+            while (ex2Ready<3 || !asyncFlag){
+                Thread.sleep(1);
+            }
         });
     }
 }
