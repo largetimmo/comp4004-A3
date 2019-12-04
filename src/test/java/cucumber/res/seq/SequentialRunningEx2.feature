@@ -1,5 +1,9 @@
 Feature: Sequential running multi student registration Ex1
-
+#Secondd example
+  #Basically same logic, init -> s2 deregister thread up ->s3,s4 register
+  # thread up -> s1 and s2 register course -> asyncFlag to true
+  # Expected output is at most(maybe none) one of the s2,s3,s4 are going to register the course.
+    #Cucumber version 4.7.2
   Scenario: Create course
     Given init system
     And clerk login
@@ -45,7 +49,6 @@ Feature: Sequential running multi student registration Ex1
   Scenario: Student 2 register course
     Then wait until registration starts
     Then student register course 101010 on "student2ip"
-    Then student 101010102 has 1 course
 
   Scenario:  async ready
     Then async ready
