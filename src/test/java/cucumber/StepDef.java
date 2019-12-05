@@ -385,5 +385,8 @@ public class StepDef implements En {
                 Thread.sleep(1);
             }
         });
+        Then("{int} students got course {int}",(Integer count,Integer courseNum)->{
+            Assert.assertTrue(University.getInstance().getCourses().stream().filter(c->c.getMyCode()==courseNum).findAny().get().getEnrollStudent().keySet().size()==count);
+        });
     }
 }

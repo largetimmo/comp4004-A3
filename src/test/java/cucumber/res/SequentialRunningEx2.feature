@@ -1,5 +1,12 @@
 Feature: Sequential running multi student registration Ex2
 
+  #The second example is almost same thing
+  #init first then put flag to true then the other threads start
+
+
+    #Expected result: zero to one of the s2,s3,s4 has the course registered
+  #Cucumber version: 4.7.2
+
   Scenario: Create course
     Then wait ex2
     Then print "ex2 start"

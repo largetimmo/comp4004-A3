@@ -36,13 +36,24 @@ Feature: Parallel running multi student registration Ex1
       | print_out |
       | I'm ready |
 
+
+    #Then these threads are waiting for async ready
   Scenario Outline: async_register_course
     Then print "<print_out>"
     Then wait until async ready
     Then student register course 101010 on "<ipaddr>" in "EX1"
-    Then set ex2 ready
     Examples:
       | print_out | ipaddr     |
       | 2 start   | student2ip |
       | 3 start   | student3ip |
       | 4 start   | student4ip |
+
+  Scenario Outline: one_student_got_course
+    Then wait until registration ends
+    Then <student_count> students got course 101010
+    Then set ex2 ready
+    Then set ex2 ready
+    Then set ex2 ready
+    Examples:
+      | student_count |
+      | 2             |
