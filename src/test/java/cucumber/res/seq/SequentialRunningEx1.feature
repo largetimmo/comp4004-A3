@@ -55,6 +55,10 @@ Feature: Sequential running multi student registration Ex1
   Scenario:  async ready
     Then async ready
 
+  Scenario:  check course
+    Then wait until registration ends
+    Then 2 students register course 101010
+
 
 
 

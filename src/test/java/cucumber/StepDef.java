@@ -350,5 +350,8 @@ public class StepDef implements En {
         Then("async ready",()->{
             asyncFlag = true;
         });
+        Then("{int} students register course {int}",(Integer count,Integer courseNum)->{
+            Assert.assertTrue(University.getInstance().getCourses().stream().filter(c->c.getMyCode()==courseNum).findAny().get().getEnrollStudent().keySet().size()==count);
+        });
     }
 }
